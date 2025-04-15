@@ -5,6 +5,7 @@
 ---
 
 ## 📚 Core Concepts  
+
 | Paradigm           | Key Topics                          |  
 |--------------------|-------------------------------------|  
 | **Imperative**     | Syntax/semantics, operational rules |  
@@ -17,6 +18,7 @@
 ## 🏭 Semester Project: Factory Production System  
 
 ### Knowledge Base Requirements  
+
 ```prolog  
 % Product Structure Example  
 product(1, 'Wooden Chair', 150.50, [  
@@ -28,24 +30,29 @@ product(1, 'Wooden Chair', 150.50, [
 % Sales Tracking  
 sale(2024-05-20, client(5, 'John Doe'), 1, 3). % Sold 3 chairs
 ```
+
 ---
 
 ## 📜 Academic Resources
-  - Solved Exams: 2023-2024 logic programming challenges
-  - Documentation: Commented Horn clauses for all rules
+ - **Solved Exams** : 2023-2024 logic programming challenges.
+ - **Documentation** : Commented Horn clauses for all rules.
 
 ---
 
 ## 🛠️ Tools & Validation
-Development: SWI-Prolog + VSCode
-
-Testing:
-
+- **Development Environment** :
+    - SWI-Prolog + VSCode
+- **Testing Workflow** :
 ```prolog
-Copy
 ?- test_stock_validation. % Unit test example  
-true.  
+true.
 ```
--  **Edge Cases**:
-    - Zero-stock sales prevention
-    - Temporal sales consistency (date ranges)
+- **Edge Cases** :
+    - Zero-stock sales prevention.
+    - Temporal sales consistency (date ranges).
+
+---
+
+## 📜 License
+
+This repository is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the contents of this repository as long as you adhere to the terms of the license. 📝
