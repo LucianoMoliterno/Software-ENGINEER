@@ -1,51 +1,148 @@
-# Operating systems
+# Operating Systems 🖥️  
+[![ISO](https://img.shields.io/badge/ISO-Process_Planning-blue)](https://en.wikipedia.org/wiki/Operating_system)  
+[![Distributed_Systems](https://img.shields.io/badge/Distributed_Systems-Concurrency-green)](https://en.wikipedia.org/wiki/Distributed_operating_system)  
+**Repository for learning and applying concepts of operating systems, including process scheduling, concurrency, distributed systems, and practical implementations.**
 
-## In this repository you will see:
+---
 
-## ISO:
-    -Introduction
-    -Process Administration
-    -Entry/Exit Administration
-    -Process Planning
-    -Memory Management
-    -File System Administration
-    -Security
-    -Partial + Practical Work
+## 📚 Core Topics  
 
-## TP Delivery No 1: Understanding Process Planning Algorithms.
-#### The objective is to understand how short-range process planning works. To do this, each group must manually carry out 4 process planning simulations, each with a different algorithm (two simulations must use non-preemptive algorithms, and the other two with preemptive algorithms). To do this, 6 processes will be used whose configuration will be defined by the ID numbers of the students that make up the group. Once all the simulations have been carried out, the results obtained should be compared by analyzing the advantages and disadvantages of each planning algorithm. As a result of this delivery, a report must be presented that indicates:
-    1) Process configuration.
-    2) Results obtained for each simulation.
-    3) Comparison and analysis of the results obtained in each simulation.
-## TP Delivery No 2: New Planner Proposal.
-#### The objective is to propose a new type of process planner, which must have some different characteristic from those seen in class. Said proposal must be described indicating the possible benefits that it is thought to have, as well as include a pseudo-code that indicates its way of working. Based on this specification, each group must apply its proposal in the process configuration defined in the first delivery. Once the application has been completed, the results obtained must be analyzed and compared with those obtained in previous deliveries. As a result of this delivery, a report must be presented that indicates:
-    1) Description of the new type of proposed process planner.
-    2) Pseudo-code of the proposed new type of process scheduler.
-    3) Results obtained by its application.
-    4) Analysis of the results obtained.
-    5) Comparison with the results in the previous simulation.
+### **ISO: Operating System Fundamentals**  
+- **Introduction**: Overview of operating system components and functionalities.  
+- **Process Administration**: Process states, creation, and termination.  
+- **Entry/Exit Administration**: I/O management and device drivers.  
+- **Process Scheduling**: Short-term, long-term, and medium-term scheduling.  
+- **Memory Management**: Paging, segmentation, and virtual memory.  
+- **File System Administration**: File structures, permissions, and operations.  
+- **Security**: Authentication, access control, and threat mitigation.  
+- **Partial + Practical Work**: Hands-on exercises and assessments.  
 
-## SO:
-    -Concurrency between Processes
-    -Interlock between Processes
-    -Distributed Operating Systems
-    -Migration of Processes in SOD
-    -Synchronization and Interlock in SOD
-    -SOD resources
-    -Trx Security and SOD Failures
-    -Special Operating Systems
-    -Coexistence of Operating Systems
-    -Partial + Practical Work
+---
 
-## TP Delivery No 1: Installation of the Distributed Environment.
-#### The objective of this delivery is for students to install the “Rocks” operating system on at least 3 virtual machines (one being the master node and the rest the slave nodes). After configuring this environment, the group of students must present a report indicating the steps taken for the installation, the configuration of the environment used and the problems found with their corresponding solutions.
-## TP Delivery No 2: Distributed Environment Stress Testing.
-#### The objective of this delivery is to test the operation of the distributed system installed in the previous delivery using the available tools. Each group of students must perform at least 4 performance, load balancing and/or node outage tests in this environment and then present a report that indicates the objective of the test, its description, the results obtained in the environment along with its corresponding analysis. With these results, students must present a report that indicates:
-    i. Configuration of the used environment.
-    ii. For each test performed:
-        · Objective of the test.
-        · Description of the test carried out.
-        · Screenshots.
-        · Real results obtained in the environment.
-    iii. Analysis of the tests carried out.
-    iv. Conclusions of the work carried out.
+## 🔧 Practical Work (ISO)  
+
+### **TP Delivery No 1: Understanding Process Scheduling Algorithms**  
+#### Objective:  
+Understand how short-range process scheduling works by simulating different algorithms.  
+
+#### Tasks:  
+1. Simulate 4 process scheduling algorithms:  
+   - Two non-preemptive algorithms (e.g., FCFS, SJF).  
+   - Two preemptive algorithms (e.g., Round Robin, Priority Scheduling).  
+2. Use 6 processes configured based on student IDs.  
+3. Compare results and analyze advantages/disadvantages of each algorithm.  
+
+#### Deliverables:  
+1. **Process Configuration**: Define the processes used in simulations.  
+2. **Results Obtained**: Present outcomes for each simulation.  
+3. **Comparison and Analysis**: Analyze the performance of each algorithm.  
+
+---
+
+### **TP Delivery No 2: New Scheduler Proposal**  
+#### Objective:  
+Propose a new type of process scheduler with unique characteristics.  
+
+#### Tasks:  
+1. Describe the proposed scheduler and its potential benefits.  
+2. Provide pseudo-code for the scheduler’s operation.  
+3. Apply the scheduler to the process configuration from TP Delivery No 1.  
+4. Analyze and compare results with previous simulations.  
+
+#### Deliverables:  
+1. **Description**: Explain the new scheduler.  
+2. **Pseudo-code**: Provide implementation details.  
+3. **Results Obtained**: Show outcomes of the new scheduler.  
+4. **Analysis**: Evaluate the results.  
+5. **Comparison**: Compare with previous simulations.  
+
+---
+
+## 🌐 Distributed Operating Systems (SOD)  
+
+### **Core Topics**  
+- **Concurrency between Processes**: Handling simultaneous execution.  
+- **Interlock between Processes**: Synchronization mechanisms (e.g., semaphores, mutexes).  
+- **Distributed Operating Systems**: Architecture and principles.  
+- **Process Migration in SOD**: Load balancing and fault tolerance.  
+- **Synchronization and Interlock in SOD**: Coordination across nodes.  
+- **SOD Resources**: Resource allocation and management.  
+- **Trx Security and SOD Failures**: Ensuring reliability and security.  
+- **Special Operating Systems**: Real-time, embedded, and cloud-based systems.  
+- **Coexistence of Operating Systems**: Multi-OS environments.  
+- **Partial + Practical Work**: Hands-on exercises and assessments.  
+
+---
+
+## 🔧 Practical Work (SOD)  
+
+### **TP Delivery No 1: Installation of the Distributed Environment**  
+#### Objective:  
+Install and configure the "Rocks" operating system on at least 3 virtual machines (1 master node, 2 slave nodes).  
+
+#### Tasks:  
+1. Install Rocks OS on virtual machines.  
+2. Configure the distributed environment.  
+3. Document challenges faced and their solutions.  
+
+#### Deliverables:  
+1. **Installation Steps**: Detailed instructions for setup.  
+2. **Environment Configuration**: Description of the distributed system.  
+3. **Problems and Solutions**: Challenges encountered during installation.  
+
+---
+
+### **TP Delivery No 2: Distributed Environment Stress Testing**  
+#### Objective:  
+Test the distributed system’s performance, load balancing, and fault tolerance.  
+
+#### Tasks:  
+1. Perform at least 4 tests:  
+   - Performance testing.  
+   - Load balancing evaluation.  
+   - Node outage scenarios.  
+2. Document results and analyze findings.  
+
+#### Deliverables:  
+1. **Environment Configuration**: Describe the setup used for testing.  
+2. **Test Details**: For each test:  
+   - Objective.  
+   - Description.  
+   - Screenshots.  
+   - Results obtained.  
+3. **Analysis**: Evaluate the outcomes of each test.  
+4. **Conclusions**: Summarize insights and learnings.  
+
+---
+
+## 🛠️ How to Use  
+
+### **Study the Theory**  
+1. Open `/theory/process_scheduling.md` for scheduling algorithms.  
+2. Review `/theory/distributed_systems.md` for SOD concepts.  
+
+### **Practice with Examples**  
+1. Simulate scheduling algorithms in `/exercises/scheduling_simulations`.  
+2. Test distributed systems using `/tools/rocks_os_setup_guide`.  
+
+### **Submit Deliverables**  
+- Follow the structure provided in `/templates/deliverable_report_template.md` for reports.  
+
+---
+
+## 📜 Methodology  
+
+- **Step-by-Step Learning**: Start with basic OS concepts and progress to advanced topics like distributed systems.  
+- **Hands-On Practice**: Real-world simulations and distributed environment setups.  
+- **Collaborative Work**: Group tasks to encourage teamwork and problem-solving.  
+
+---
+
+## ⚠️ Critical Note  
+Always validate configurations and test results to ensure accuracy and reliability!
+
+---
+
+## 📜 License
+
+This repository is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the contents of this repository as long as you adhere to the terms of the license. 📝
