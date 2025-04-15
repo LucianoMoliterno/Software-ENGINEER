@@ -1,63 +1,143 @@
-# Computer Architecture (Assembler programming)
-## In this repo you will find:
+# Computer Architecture (Assembler Programming) 🖥️  
+[![MPLAB](https://img.shields.io/badge/MPLAB-IDE-blue)](https://www.microchip.com/en-us/tools-resources/develop/mplab-x-ide)  
+[![Proteus](https://img.shields.io/badge/Proteus-Simulation-green)](https://www.labcenter.com/)  
+**Repository for learning and applying assembler programming concepts using PIC microcontrollers, MPLAB, and Proteus.**
 
-## 1.Mplab
-## 2.Use of Proteus 
-## 3.Using the Datasheet (PIC16F84A - Timer 0)
-## 4.Exercises:
-### Exercise 1: Based on a circuit composed of a PIC16F628A with LEDs on the RB0, RB1, RB2 and RB3 terminals, it is desired to develop a series of programs that allow:
-#### [a] Turn on all the LEDs.
-#### [b] Turn all LEDs on and off every one second.
-#### [c] Same [b] but they are on for one second and off for 500ms.
-#### [d] Turn on the LEDs from RB0 to RB3 with a delay of 500ms between them.
-#### [e] Same point [d] but once they all turn on, they must begin to turn off from RB3 to RB0 with the same delay and carry out the entire cycle indefinitely.
+---
 
-### Exercise 2: Based on a circuit composed of a PIC16F628A with a button on terminal RB0 and an LED on terminals RB1 and RB2, develop the programs that allow:
-#### [a] Turn on both LEDs when the button is pressed.
-#### [b] Turn on the LEDs when the button is pressed and turn them off when pressed again.
-#### [c] Perform the following sequence as the button is pressed: turn on RB1, turn on RB2, turn off RB1, turn off RB2.
-#### [d] Same point [c] with interruption by RB0.
+## 📚 Core Topics  
 
-### Exercise 3: Based on a circuit composed of a PIC16F628A with a button on terminal RB0 and a display connected to terminals RB1-RB7:
-#### [a] Count from 0 to 15 in hexadecimal each time the button is pressed and show the result on the display. When it reaches 15 the counter resets.
-#### [b] Same point [a] but when it reaches 15 the counter begins to count down to 0. The sequence repeats indefinitely. 
-#### [c] Same point [c] but the counter performs the sequence automatically. With the RB0 button you must be able to pause or resume the process. The step between number and number must be 1 second and must be done by using Timer 0 and interrupting by RB0
+### **1. Tools & Environment**  
+- **MPLAB**: Development environment for PIC microcontrollers.  
+- **Proteus**: Circuit simulation and testing.  
+- **Datasheet Study**: PIC16F84A - Timer 0 configuration and usage.  
 
-## 5.TP Elevator
-## 6.TP Led Board
-### A) Create a program that allows adding two three-digit hexadecimal numbers on the board according to the following sequence:
-#### 1. A number is written on the displays. With the G1 button you increase the number on the board and with the G2 button you subtract it.
-#### 2. The M button is pressed to allow entry of the second number.
-#### 3. The second number is written. With the G1 button you increase the number on the board and with the G2 button you subtract it.
-#### 4. The M button is pressed and the result is displayed.
-#### 5. If you press the R button you start the program again.
-#### If at any part of the sequence the power is cut off, it must be started from that place when connected again.
-### B) Make a program that allows you to subtract two three-digit hexadecimal numbers on the board according to the following sequence:
-#### 1. A number is written on the displays. With the G1 button you increase the number on the board and with the G2 button you subtract it.
-#### 2. The M button is pressed to allow entry of the second number.
-#### 3. The second number is written. With the G1 button you increase the number on the board and with the G2 button you subtract it.
-#### 4. The M button is pressed and the result is displayed by doing N1-N2. If the result is negative, turn on the G segment of the display that is next to the last lit digit. (Ex: if the result gives -FF, turn on the g segment of the display 3, if it gives -9, turn on the g segment of the display 2).
-#### 5. If you press the R button you start the program again.
-#### If at any part of the sequence the power is cut off, it must be started from that place when connected again.
-### C) Create a program that allows you to multiply two two-digit hexadecimal numbers on the board according to the following sequence:
-#### 1. Both numbers are written on the board. With the G1 button the first number will be incremented and with the G2 button the second will be incremented. Pressing the R button resets both numbers.
-#### 2. The M button is pressed and the multiplication is shown on the screen. Pressing the R button returns to step 1 (Numbers are not deleted).
-#### If at any part of the sequence the power is cut off, it must be started from that place when connected again.
-### D) Create a program that allows adding two three-digit decimal numbers on the board according to the following sequence:
-#### 1. A number is written on the displays. With the G1 button you increase the number on the board and with the G2 button you subtract it.
-#### 2. The M button is pressed to allow entry of the second number.
-#### 3. The second number is written. With the G1 button you increase the number on the board and with the G2 button you subtract it.
-#### 4. The M button is pressed and the result is displayed.
-#### 5. If you press the R button you start the program again.
-#### If at any part of the sequence the power is cut off, it must be started from that place when connected again.
-### E) Create a program that allows you to subtract two three-digit decimal numbers on the board according to the following sequence:
-#### 1. A number is written on the displays. With the G1 button you increase the number on the board and with the G2 button you subtract it.
-#### 2. The M button is pressed to allow entry of the second number.
-#### 3. The second number is written. With the G1 button you increase the number on the board and with the G2 button you subtract it.
-#### 4. The M button is pressed and the result is displayed by doing N1-N2. If the result is negative, turn on the G segment of the display that is next to the last lit digit. (Ex: if the result gives -85, turn on the g segment of the display 3, if it gives -9, turn on the g segment of the display 2).
-#### 5. If you press the R button you start the program again.
-#### If at any part of the sequence the power is cut off, it must be started from that place when connected again.
-### F) Create a program that allows you to multiply two two-digit decimal numbers on the board according to the following sequence:
-#### 1. Both numbers are written on the board. With the G1 button the first number will be incremented and with the G2 button the second will be incremented. Pressing the R button resets both numbers.
-#### 2. The M button is pressed and the multiplication is shown on the screen. Pressing the R button returns to step 1 (Numbers are not deleted).
-#### If at any part of the sequence the power is cut off, it must be started from that place when connected again.
+---
+
+## 🔧 Exercises  
+
+### **Exercise 1: LED Control with PIC16F628A**  
+Circuit: LEDs connected to RB0, RB1, RB2, and RB3 terminals.  
+
+#### Tasks:  
+- **[a]** Turn on all LEDs.  
+- **[b]** Toggle all LEDs every 1 second.  
+- **[c]** LEDs on for 1 second, off for 500ms.  
+- **[d]** Turn on LEDs from RB0 to RB3 with a 500ms delay between each.  
+- **[e]** Same as [d], but turn off LEDs from RB3 to RB0 after all are on, repeating indefinitely.  
+
+---
+
+### **Exercise 2: Button and LED Interaction**  
+Circuit: Button on RB0, LEDs on RB1 and RB2.  
+
+#### Tasks:  
+- **[a]** Turn on both LEDs when the button is pressed.  
+- **[b]** Toggle LEDs on/off with button presses.  
+- **[c]** Sequence: Turn on RB1 → RB2 → Turn off RB1 → Turn off RB2.  
+- **[d]** Same as [c], but with RB0 interrupt handling.  
+
+---
+
+### **Exercise 3: Button and Display Interaction**  
+Circuit: Button on RB0, display connected to RB1-RB7.  
+
+#### Tasks:  
+- **[a]** Count from 0 to 15 in hexadecimal on button press. Reset after 15.  
+- **[b]** Same as [a], but count down to 0 after reaching 15. Repeat indefinitely.  
+- **[c]** Automatic counting with a 1-second delay between numbers. Use Timer 0 and RB0 interrupt. Pause/resume with the button.  
+
+---
+
+## 🏗️ Projects  
+
+### **Project 1: Elevator Simulation**  
+Simulate an elevator system using PIC assembly programming.  
+
+### **Project 2: LED Board Operations**  
+
+#### **A. Addition of Two 3-Digit Hexadecimal Numbers**  
+Sequence:  
+1. Write the first number using G1 (increment) and G2 (decrement).  
+2. Press M to enter the second number.  
+3. Write the second number using G1 and G2.  
+4. Press M to display the result.  
+5. Press R to restart.  
+- **Power Recovery**: Resume from the last step if power is interrupted.  
+
+#### **B. Subtraction of Two 3-Digit Hexadecimal Numbers**  
+Sequence:  
+1. Write the first number using G1 (increment) and G2 (decrement).  
+2. Press M to enter the second number.  
+3. Write the second number using G1 and G2.  
+4. Press M to display the result (N1 - N2).  
+   - If negative, turn on the G segment of the display next to the last digit.  
+5. Press R to restart.  
+- **Power Recovery**: Resume from the last step if power is interrupted.  
+
+#### **C. Multiplication of Two 2-Digit Hexadecimal Numbers**  
+Sequence:  
+1. Write both numbers using G1 (first number) and G2 (second number).  
+   - Press R to reset both numbers.  
+2. Press M to display the multiplication result.  
+   - Press R to return to step 1 without clearing numbers.  
+- **Power Recovery**: Resume from the last step if power is interrupted.  
+
+#### **D. Addition of Two 3-Digit Decimal Numbers**  
+Sequence:  
+1. Write the first number using G1 (increment) and G2 (decrement).  
+2. Press M to enter the second number.  
+3. Write the second number using G1 and G2.  
+4. Press M to display the result.  
+5. Press R to restart.  
+- **Power Recovery**: Resume from the last step if power is interrupted.  
+
+#### **E. Subtraction of Two 3-Digit Decimal Numbers**  
+Sequence:  
+1. Write the first number using G1 (increment) and G2 (decrement).  
+2. Press M to enter the second number.  
+3. Write the second number using G1 and G2.  
+4. Press M to display the result (N1 - N2).  
+   - If negative, turn on the G segment of the display next to the last digit.  
+5. Press R to restart.  
+- **Power Recovery**: Resume from the last step if power is interrupted.  
+
+#### **F. Multiplication of Two 2-Digit Decimal Numbers**  
+Sequence:  
+1. Write both numbers using G1 (first number) and G2 (second number).  
+   - Press R to reset both numbers.  
+2. Press M to display the multiplication result.  
+   - Press R to return to step 1 without clearing numbers.  
+- **Power Recovery**: Resume from the last step if power is interrupted.  
+
+---
+
+## 🛠️ How to Use  
+
+### **Development Environment**  
+1. Install MPLAB IDE for assembly programming.  
+2. Use Proteus for circuit simulation and testing.  
+3. Refer to the PIC16F84A datasheet for Timer 0 configuration.  
+
+### **Testing Programs**  
+- Simulate circuits in Proteus before deploying to hardware.  
+- Debug using MPLAB's built-in tools.  
+
+---
+
+## 📜 Methodology  
+
+- **Step-by-Step Approach**: Break down each exercise into smaller tasks.  
+- **Modular Design**: Separate logic for input handling, calculations, and output display.  
+- **Error Handling**: Ensure robustness by handling edge cases (e.g., overflow, invalid inputs).  
+
+---
+
+## ⚠️ Critical Note  
+Always validate Timer 0 configurations and interrupt handling to ensure precise timing and responsiveness!
+
+---
+
+## 📜 License
+
+This repository is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the contents of this repository as long as you adhere to the terms of the license. 📝
