@@ -1,0 +1,40 @@
+cd('C:/Users/Medraut/Desktop/ProyectoFabrica/Codigo').
+
+Carga Los Archivos:
+?- consult('consultas.pl').
+
+Prueba De Las Consultas:
+?- listar_productos.
+?- listar_clientes.
+?- listar_ventas.
+?- listar_stock.
+?- ventas_cliente(juan).
+?- ventas_producto(tarta_frutilla).
+?- ventas_entre('2024-02-10', '2024-02-20').
+?- cliente_mas_compras.
+?- cliente_compra_mayor.
+?- cliente_monto_mayor(2000).
+?- cliente_monto_menor(1000).
+?- listar_ingredientes.
+
+Prueba De Las Consultas Adicionales:
+?- clientes_que_compraron(pastel_chocolate).
+?- cantidad_vendida(pastel_chocolate, Total).
+?- ingresos_por_producto(pastel_chocolate, Ingresos).
+?- ingresos_totales(Total).
+?- clientes_frecuentes.
+--------------------------------------------------------------------------------
+ESTUDIAR PARA DEFENSA:
+¿Qué pasaría si ya no hay stock de un producto que se quiere vender?
+verificar_stock(Producto, Cantidad) :-
+    stock(Producto, Disponible),
+    (   Cantidad =< Disponible
+    ->  write('Venta posible. Stock disponible: '), write(Disponible), nl
+    ;   write('No hay suficiente stock. Solo quedan '), write(Disponible), nl, fail).
+
+EJEMPLO:
+?- verificar_stock(pastel_chocolate, 5).
+Venta posible. Stock disponible: 10.
+
+?- verificar_stock(pastel_chocolate, 15).
+No hay suficiente stock. Solo quedan 10.
