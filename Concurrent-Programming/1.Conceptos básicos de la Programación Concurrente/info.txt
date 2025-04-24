@@ -1,3 +1,0 @@
-Programación secuencial vs Programación concurrente.
-Necesidad de la  programación concurrente.
-Problemas en la programación concurrente.
