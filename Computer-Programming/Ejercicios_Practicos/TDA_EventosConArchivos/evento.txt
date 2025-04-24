@@ -1,3 +1,0 @@
-Evento perfecto,55,1
-Alto evento,1009,2
-Velez pasion,200,3
