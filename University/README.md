@@ -114,12 +114,3 @@ Covers topics related to system design, organization, and management, including 
 ## 📜 License
 
 This repository is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the contents of this repository as long as you adhere to the terms of the license. 📝
-
----
-
-## 📞 Contact
-
-If you have any questions, suggestions, or feedback, feel free to reach out:
-
-- Email: [📧 luciano.moliterno.97@gmail.com](mailto:luciano.moliterno.97@gmail.com)
-- GitHub: [💻 @LucianoMoliterno](https://github.com/LucianoMoliterno)
