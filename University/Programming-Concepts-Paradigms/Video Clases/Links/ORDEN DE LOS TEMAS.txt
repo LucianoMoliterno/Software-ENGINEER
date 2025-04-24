@@ -1,0 +1,23 @@
+LENGUAJES DE PROGRAMACION (ademas de la introduccion, compiladores e interpretes)
+analizadoe léxico- explicacion y ejemplo pag web
+analizador léxico- ejemplo video
+lenguajes gramaticas y automatas en procesadores de lenguajes
+ejercicios de tarea 26/4
+explicacion de los tipos de gramáticas -video
+(para instalar jflap, debes tener instalado jdk, si tenés instalado java, solo bajarlo y usarlo)
+instalador de jflap
+ejercicios de gramaticas libres de contexto
+notacion BNF
+ejercicios BNF
+arbol sintáctico -ejemplo
+ejemplo analizador sintáctico
+diagrama sintáctico -EBNF
+semántica de un lenguaje de rogramacion- semántica operacional
+semántica definicion ejemplos
+analizador semántico - ejemplo
+analizador semántico - evaluacion de atributos
+arbol de derivacion -ejemplo
+arbol semántico -ejemplo2
+leer los paradigmas
+instalador de swi prolog
+video tutoriales de prolog
