@@ -1,8 +1,4 @@
-# 🎓 Undergraduate Programmer/Analyst + Licensed Systems Engineer
-
-As a **Systems Engineer**, work in public and private organizations with IT departments, where you’ll plan, design, and lead systemic and software projects. Examples include commercial enterprises, service industries, government ministries, municipalities, and universities. These organizations rely on skilled professionals to manage their technological needs. 🏢🌐
-
----
+***This repository was created so that recruiters and companies can see my knowledge and experience for professional labor relations.***
 
 ## 🔧 What Im Can Do
 
