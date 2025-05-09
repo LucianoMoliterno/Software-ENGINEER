@@ -1,0 +1,45 @@
+# depslib dependency file v1.0
+1746824105 source:c:\users\medraut\desktop\tp_biblioteca\main.c
+	<stdio.h>
+	<stdlib.h>
+	"pila.h"
+	"cola.h"
+	"libro.h"
+	"usuario.h"
+	"utilidades.h"
+
+1746824235 c:\users\medraut\desktop\tp_biblioteca\include\pila.h
+
+1746824260 c:\users\medraut\desktop\tp_biblioteca\include\cola.h
+
+1746824182 c:\users\medraut\desktop\tp_biblioteca\include\libro.h
+
+1746824209 c:\users\medraut\desktop\tp_biblioteca\include\usuario.h
+
+1746824285 c:\users\medraut\desktop\tp_biblioteca\include\utilidades.h
+	"libro.h"
+	"usuario.h"
+
+1746824269 source:c:\users\medraut\desktop\tp_biblioteca\src\cola.c
+	<stdlib.h>
+	"cola.h"
+
+1746824188 source:c:\users\medraut\desktop\tp_biblioteca\src\libro.c
+	<stdlib.h>
+	<string.h>
+	"libro.h"
+
+1746824244 source:c:\users\medraut\desktop\tp_biblioteca\src\pila.c
+	<stdlib.h>
+	"pila.h"
+
+1746824213 source:c:\users\medraut\desktop\tp_biblioteca\src\usuario.c
+	<stdlib.h>
+	<string.h>
+	"usuario.h"
+
+1746824298 source:c:\users\medraut\desktop\tp_biblioteca\src\utilidades.c
+	<stdio.h>
+	<stdlib.h>
+	"utilidades.h"
+
