@@ -30,25 +30,26 @@ The primary goal of this repository is to provide a structured and accessible wa
 
 The repository is organized into folders, each representing a specific subject or area of study. Below is a breakdown of the main folders:
 
-| Folder Name                             | Description                                                                                   |
-|---------------------------------------  |-----------------------------------------------------------------------------------------------|
-| **Access-to-systems**                   | 🔐 Resources related to system access, including authentication and authorization mechanisms. |
-| **AYED**                                | 🧩 Materials covering algorithms and data structures.                                         |
-| **Computer-Architecture**               | 🏗️ Content about computer architecture, including hardware design and optimization.           |
-| **Computer-Organization**               | 💻 Content about computer architecture, hardware organization, and low-level systems.         |
-| **Computer-Programming**                | 🖥️ General programming resources, including code examples and best practices.                 |
-| **Concurrent-Programming**              | ⚡ Topics on parallelism, threads, and synchronization in programming.                        |
-| **DataBase**                            | 🗄️ Database design, management, and SQL-related resources.                                     |
-| **Knowledge-Based-Systems**             | 🤖 Topics on expert systems, artificial intelligence, and knowledge representation.           |
-| **Mathematics**                         | ➕ Mathematical concepts ranging from basic to advanced levels.                               |
-| **Networks-Communications**             | 🌐 Networking fundamentals, protocols, and communication systems.                             |
-| **Object-Orientation**                  | 🏗️ Object-oriented programming principles and examples.                                       |
-| **Operating-systems**                   | 🖥️ Topics on operating systems, including process management and file systems.                |
-| **Probability-and-Statistics**          | 📊 Statistical methods, probability theory, and their applications.                           |
-| **Problem-expression-and-algorithms**   | 🤔 Techniques for problem-solving and algorithm design.                                       |
-| **Programming-Concepts-Paradigms**      | 🔄 Exploration of different programming paradigms and concepts.                               |
-| **Software-Engineering**                | 🛠️ Principles of software design, development, and maintenance.                               |
-| **Systems-Organizations**               | 🏢 Topics on system design, organization, and management.                                     |
+| Folder Name                             | Description                                                                                         |
+|---------------------------------------  |---------------------------------------------------------------------------------------------------- |
+| **Access-to-systems**                   | 🔐 Resources related to system access, including authentication and authorization mechanisms.      |
+| **AYED**                                | 🧩 Materials covering algorithms and data structures.                                              |
+| **Computer-Architecture**               | 🏗️ Content about computer architecture, including hardware design and optimization.                |
+| **Computer-Organization**               | 💻 Content about computer architecture, hardware organization, and low-level systems.              |
+| **Computer-Programming**                | 🖥️ General programming resources, including code examples and best practices.                      |
+| **Concurrent-Programming**              | ⚡ Topics on parallelism, threads, and synchronization in programming.                             |
+| **DataBase**                            | 🗄️ Database design, management, and SQL-related resources.                                          |
+| **Knowledge-Based-Systems**             | 🤖 Topics on expert systems, artificial intelligence, and knowledge representation.                |
+| **Mathematics**                         | ➕ Mathematical concepts ranging from basic to advanced levels.                                    |
+| **Networks-Communications**             | 🌐 Networking fundamentals, protocols, and communication systems.                                  |
+| **Object-Orientation**                  | 🏗️ Object-oriented programming principles and examples.                                            |
+| **Operating-systems**                   | 🖥️ Topics on operating systems, including process management and file systems.                     |
+| **Probability-and-Statistics**          | 📊 Statistical methods, probability theory, and their applications.                                |
+| **Problem-expression-and-algorithms**   | 🤔 Techniques for problem-solving and algorithm design.                                            |
+| **Programming-Concepts-Paradigms**      | 🔄 Exploration of different programming paradigms and concepts.                                    |
+| **Proyect Software**                    | 🚀 A collection of software projects, including source code, documentation, and deployment guides. |
+| **Software-Engineering**                | 🛠️ Principles of software design, development, and maintenance.                                    |
+| **Systems-Organizations**               | 🏢 Topics on system design, organization, and management.                                          |
 
 Each folder contains its own `README.md` file with more detailed information about the contents and structure of that specific section. 📖
 
@@ -102,6 +103,9 @@ Teaches techniques for expressing problems clearly and designing efficient algor
 
 ### 🔄 Programming-Concepts-Paradigms
 Explores different programming paradigms, such as procedural, functional, and logic programming.
+
+### 🚀 Proyect Software  
+Contains software projects, including source code, documentation, and deployment guides. 
 
 ### 🛠️ Software-Engineering
 Covers the principles of software design, development, testing, and maintenance, including methodologies like Agile and DevOps.
