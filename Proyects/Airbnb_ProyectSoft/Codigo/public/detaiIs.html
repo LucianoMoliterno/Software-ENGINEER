@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalles de la Propiedad</title>
+    <link rel="stylesheet" href="css/details.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html"><img src="assets/img/logo.png" alt="" width="100"></a>
+    </header>
+
+    <div class="container">
+        <!-- titulo -->
+        <div class="title-section">
+            <h1>Lujosa residencia en el hotel Faena Puerto Madero</h1>
+            <button type="button" class="share-btn"
+                onclick="navigator.share ? navigator.share({title: document.title, url: window.location.href}) : alert('Función de compartir no soportada en este navegador.')">
+                <img src="assets/img/share.svg" alt="Compartir" style="width:24px; height:24px; vertical-align:middle;">
+            </button>
+        </div>
+
+        <div class="img-container">
+            <!-- imagen -->
+            <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTA3NTkxNzc0ODI4MTgwNTc1NQ%3D%3D/original/d287963c-789e-4f03-b875-b4c0819923ae.jpeg?im_w=1440"
+                alt="Imagen de la propiedad" class="property-image">
+        </div>
+
+        <div class="details">
+            <div class="detail-box">
+                <!-- precio -->
+                <strong>Precio:</strong><br>$150 USD por noche
+            </div>
+            <div class="detail-box">
+                <!-- Habitaciones -->
+                <strong>Habitaciones:</strong><br>3
+            </div>
+            <div class="detail-box">
+                <!-- Baños -->
+                <strong>Baños:</strong><br>2
+            </div>
+            <div class="detail-box">
+                <!-- Huéspedes -->
+                <strong>Huéspedes:</strong><br>3
+            </div>
+        </div>
+
+        <div class="container-2">
+
+            <div class="description">
+                <h2>Descripción</h2>
+                <!-- Descripción -->
+                <p>Increible departamento dentro del Faena Hotel Buenos Aires que se encuentra en la
+                    exclusiva zona de Puerto Madero y es un lujoso hotel de 5 estrellas de diseño situado
+                    en un edificio impresionante con spa y pileta. </p>
+                <h3>Comodidades</h3>
+                <!-- Comodidades -->
+                <ul>
+                    <li>Cocina</li>
+                    <li>Wifi</li>
+                    <li>Pileta al aire libre compartida</li>
+                    <li>Aire acondicionado</li>
+                    <li>Televisor</li>
+                </ul>
+            </div>
+
+            <div class="reserve">
+                <form action="resumenReserva.html" method="get" class="reserve-form">
+                    <label for="fecha-inicio">Fecha de entrada:</label>
+                    <input type="date" id="fecha-inicio" name="fecha_inicio" required>
+
+                    <label for="fecha-fin">Fecha de salida:</label>
+                    <input type="date" id="fecha-fin" name="fecha_fin" required>
+
+                    <label for="huespedes">Huéspedes:</label>
+                    <select id="huespedes" name="huespedes" required>
+                        <option value="" disabled selected>Seleccione cantidad</option>
+                        <option value="1">1 huésped</option>
+                        <option value="2">2 huéspedes</option>
+                        <option value="3">3 huéspedes</option>
+                    </select>
+
+                    <button type="submit" class="reserve-btn">Reservar</button>
+                </form>
+            </div>
+        </div>
+
+
+
+        <div class="rating">
+            <span>Califica esta propiedad:</span>
+            <form>
+                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
+                    title="5 estrellas">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
+                    title="4 estrellas">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
+                    title="3 estrellas">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
+                    title="2 estrellas">&#9733;</label>
+                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
+                    title="1 estrella">&#9733;</label>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
