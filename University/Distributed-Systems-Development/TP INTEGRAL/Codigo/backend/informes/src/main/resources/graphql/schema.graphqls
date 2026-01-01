@@ -1,0 +1,69 @@
+scalar DateTime
+
+type Query {
+    informeDonaciones(
+        categoria: String
+        fechaDesde: DateTime
+        fechaHasta: DateTime
+        eliminado: Boolean
+    ): InformeDonacionesResponse!
+    
+    listarFiltrosDonacion(usuarioId: ID!): [FiltroDonacion!]!
+
+    informeEventosPropios(filtro: FiltroEventosInput!): [EventoAgrupadoPorMes!]!
+}
+
+type Mutation {
+    guardarFiltroDonacion(input: FiltroDonacionInput!): FiltroDonacion!
+    actualizarFiltroDonacion(id: ID!, input: FiltroDonacionInput!): FiltroDonacion!
+    eliminarFiltroDonacion(id: ID!, usuarioId: ID!): Boolean!
+}
+
+type InformeDonacionesResponse {
+    donaciones: [DonacionAgrupada!]!
+}
+
+type DonacionAgrupada {
+    categoria: String!
+    eliminado: Boolean!
+    totalCantidad: Int!
+}
+
+type FiltroDonacion {
+    id: ID!
+    nombreFiltro: String!
+    usuarioId: ID!
+    categoria: String
+    fechaDesde: DateTime
+    fechaHasta: DateTime
+    eliminado: Boolean
+    fechaCreacion: DateTime!
+}
+
+input FiltroDonacionInput {
+    nombreFiltro: String!
+    usuarioId: ID!
+    categoria: String
+    fechaDesde: DateTime
+    fechaHasta: DateTime
+    eliminado: Boolean
+}
+
+type EventoInforme {
+    dia: Int!
+    nombreEvento: String!
+    descripcion: String
+    donaciones: Boolean!
+}
+
+type EventoAgrupadoPorMes {
+    mes: String!
+    eventos: [EventoInforme!]!
+}
+
+input FiltroEventosInput {
+    fechaDesde: DateTime
+    fechaHasta: DateTime
+    usuarioId: ID!
+    repartoDonaciones: String
+}
