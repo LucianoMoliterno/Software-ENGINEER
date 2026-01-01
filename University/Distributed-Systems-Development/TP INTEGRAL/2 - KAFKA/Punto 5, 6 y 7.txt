@@ -1,0 +1,65 @@
+PUNTO 5 - publicar eventos (PROBAR CON FECHA FUTURA):
+# Publicar evento con fecha de DICIEMBRE 2025 (futuro real)
+echo '{"idOrganizacion":456,"idEvento":1001,"nombreEvento":"Campaña de Invierno 2025","descripcion":"Recolección de ropa","fechaHora":"2025-12-15T10:00:00"}' | docker exec -i kafka kafka-console-producer --bootstrap-server localhost:9092 --topic eventos-solidarios
+
+# Esperar 3 segundos
+Start-Sleep -Seconds 3
+
+# Verificar que se guardó
+Invoke-RestMethod http://localhost:8082/externos
+-------------------------------------------------------------------------------------------------------
+PUNTO 6 - baja de eventos
+# Dar de baja el evento 1001
+echo '{"idOrganizacion":456,"idEvento":1001}' | docker exec -i kafka kafka-console-producer --bootstrap-server localhost:9092 --topic baja-evento-solidario
+
+# Esperar 3 segundos
+Start-Sleep -Seconds 3
+
+# Verificar que se marcó como INACTIVO
+Invoke-RestMethod http://localhost:8082/externos
+-------------------------------------------------------------------------------------------------------
+PRUEBA EXTRA - evento propio (debe ignorarse - lista vacia)
+# Publicar evento de nuestra organización (123) - NO debe guardarse
+echo '{"idOrganizacion":123,"idEvento":2001,"nombreEvento":"Evento Propio","descripcion":"Debe ignorarse","fechaHora":"2025-12-20T10:00:00"}' | docker exec -i kafka kafka-console-producer --bootstrap-server localhost:9092 --topic eventos-solidarios
+
+# Esperar 3 segundos
+Start-Sleep -Seconds 3
+
+# Verificar
+Invoke-RestMethod http://localhost:8082/externos
+-------------------------------------------------------------------------------------------------------
+PUNTO 7 - Adhesión de voluntario EXTERNO (debe guardarse)
+# 1. Ver estado inicial
+Invoke-RestMethod http://localhost:8082/adhesiones
+
+# 2. Publicar adhesión de voluntario de OTRA organización (456)
+echo '{"idEvento":"1001","voluntario":{"idOrganizacion":456,"idVoluntario":789,"nombre":"Juan","apellido":"Pérez","telefono":"+54 11 1234-5678","email":"juan.perez@ejemplo.com"}}' | docker exec -i kafka kafka-console-producer --bootstrap-server localhost:9092 --topic adhesion-evento
+
+# 3. Esperar 3 segundos
+Start-Sleep -Seconds 3
+
+# 4. Verificar que se guardó
+Invoke-RestMethod http://localhost:8082/adhesiones
+----
+Adhesión de voluntario PROPIO (debe ignorarse)
+# Publicar adhesión de voluntario de NUESTRA organización (123) - NO debe guardarse
+echo '{"idEvento":"1001","voluntario":{"idOrganizacion":123,"idVoluntario":999,"nombre":"Pedro","apellido":"Gómez","telefono":"+54 11 9999-9999","email":"pedro.gomez@ejemplo.com"}}' | docker exec -i kafka kafka-console-producer --bootstrap-server localhost:9092 --topic adhesion-evento
+
+# Esperar y verificar (NO debe aparecer)
+Start-Sleep -Seconds 3
+Invoke-RestMethod http://localhost:8082/adhesiones
+----
+Filtrar adhesiones por evento
+# Ver adhesiones del evento 1001 específicamente
+Invoke-RestMethod "http://localhost:8082/adhesiones?idEvento=1001"
+----
+Agregar otra adhesión de un voluntario diferente
+# Agregar otro voluntario externo de organización 789
+echo '{"idEvento":"1001","voluntario":{"idOrganizacion":789,"idVoluntario":555,"nombre":"María","apellido":"López","telefono":"+54 11 5555-5555","email":"maria.lopez@ejemplo.com"}}' | docker exec -i kafka kafka-console-producer --bootstrap-server localhost:9092 --topic adhesion-evento
+
+# Esperar y verificar
+Start-Sleep -Seconds 3
+Invoke-RestMethod http://localhost:8082/adhesiones
+
+
+

@@ -1,0 +1,26 @@
+PUNTO 1 Y 3:
+
+Abre tu navegador en: http://localhost:5173
+Inicia sesión con un usuario PRESIDENTE (rol 0) o VOCAL (rol 1):
+Puedes usar las credenciales que tienes en CREDENCIALES.md
+En el HomePage deberías ver la nueva card "Informes" con la descripción "Reportes y estadísticas"
+Haz click en la card "Informes" y serás redirigido a /informes/donaciones
+En la pantalla de Informe de Donaciones podrás:
+- Ver los filtros (Categoría, Fecha Desde, Fecha Hasta, Eliminado)
+- Hacer búsquedas con diferentes combinaciones de filtros
+- Ver la tabla con resultados agrupados por categoría y estado
+- Hacer click en "📥 Descargar Excel" para obtener el archivo
+
+----Datos de prueba----
+Según lo que probamos antes en el backend, deberías ver datos como:
+- ALIMENTOS: 147 (no eliminado) + 40 (eliminado)
+- JUGUETES: 73 (no eliminado) + 30 (eliminado)
+- ROPA: 0 (no eliminado) + 142 (eliminado)
+- UTILES_ESCOLARES: 207 (no eliminado) + 115 (eliminado)
+
+----Funcionalidades a probar----
+Filtro por categoría: Selecciona "Alimentos" y verás solo esa categoría
+Filtro por eliminado: Selecciona "Sí" o "No" para ver solo activos o eliminados
+Filtro por fechas: Selecciona un rango de fechas
+Botón Limpiar: Resetea todos los filtros
+Descargar Excel: Genera un archivo .xlsx con hojas separadas por categoría
