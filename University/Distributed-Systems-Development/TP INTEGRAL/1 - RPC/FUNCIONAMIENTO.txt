@@ -1,0 +1,153 @@
+---Preparación---
+Requisitos: Docker Desktop, Node 18+, curl.exe o Postman, navegador.
+Puertos: API gateway 5000, Users gRPC 9095, Eventos gRPC 9096 (HTTP 8082), Inventario gRPC 9097 (HTTP 8083), MySQL 3307, MongoDB 27017, Mailpit 8025.
+Levantar backend y gateway
+
+Construir e iniciar:
+docker compose build
+docker compose up -d
+Salud (Windows usa curl.exe):
+curl.exe -i http://localhost:5000/health
+curl.exe -i http://localhost:8083/inventario/health
+Mailpit: http://localhost:8025 (para ver mails de alta de usuario)
+
+---Levantar frontend---
+cd frontend
+npm install
+npm run dev
+http://localhost:5173 (CORS ya permitido desde el gateway)
+
+--Arranque Rapido---
+docker compose exec client
+python -c "from service.grpcClient import UsuarioClient; from proto import usuario_pb2; c=UsuarioClient(); print(c.registrarUsuario('admin','Admin','Root','','admin@example.com',usuario_pb2.Rol.PRESIDENTE))"
+
+---Roles de usuario---
+Presidente: será el único rol que pueda gestionar los usuarios, además de poder realizar cualquier acción 
+correspondiente a los demás roles.
+Vocal: accede al Inventario de donaciones.
+Coordinador: se encargará de coordinar los Eventos solidarios.
+Voluntario: podrá consultar los Eventos solidarios para participar en ellos.
+admin2/kM5q13LY (presidente)
+voluntarito/jY60Kd9X (voluntario)
+coordinadorcito/6MX0dRQz (coordinador)
+vocalito/n6QdW5iK (vocal)
+
+---Login (Req. 3)---
+Abrir http://localhost:5173
+Pantalla Login: ingresar usuario o email + contraseña.
+Si probás con un usuario inexistente/verás:
+“Usuario/email inexistente o inactivo” (404)
+“Credenciales incorrectas” (401)
+
+Caso PRESIDENTE admin2:
+Si no sabés la contraseña, abre Mailpit en http://localhost:8025 y busca el correo de alta (la clave se envía al crear usuario); usar esa contraseña.
+Al loguear, se guarda token JWT en localStorage y te redirige a /home.
+
+Gestión de usuarios – PRESIDENTE (Req. 1a y 2)
+Ir a “Usuarios” (Header → Usuarios) o a /usuarios. Verás:
+Listado con: Usuario, Nombre, Apellido, Email, Rol, Estado, Acciones.
+Filtro “Todos / Activos / No activos”.
+Acciones por fila: Editar, Dar de baja, Activar.
+
+Alta (2.b):
+Click “Crear nuevo usuario” → /registro.
+Completar: nombreUsuario, nombre, apellido, teléfono (opcional), email, rol.
+Guardar: se genera contraseña aleatoria, se guarda encriptada y se envía mail (ver Mailpit).
+
+Modificación (2.c):
+En la lista, “Actualizar” → /usuarios/:id/editar.
+Podés cambiar todos los campos excepto la clave. En edición aparece el “Estado”.
+Guardar y volver a la lista.
+
+Baja lógica (2.d):
+En la lista, “Dar de baja”: Estado pasa a INACTIVO (no se borra físicamente).
+Regla extra implementada: si el usuario estaba asignado a eventos FUTUROS, se lo remueve automáticamente.
+Esto se hace desde el gateway al desactivar: llama a Eventos, busca soloFuturos=true y los desasigna.
+Podés luego “Activar usuario” para volverlo ACTIVO.
+
+Inventario – PRESIDENTE/VOCAL (Req. 1b y 4)
+Ir a “Inventario” → /inventario (visible para PRESIDENTE o VOCAL).
+Listado con columnas: ID, Categoría (ROPA/ALIMENTOS/JUGUETES/ÚTILES_ESCOLARES), Descripción, Cantidad, Eliminado. Botones de acción si tenés permisos.
+
+Alta (4.a):
+Form arriba: seleccionar Categoría, escribir Descripción (p.ej. “remeras”), Cantidad (no negativa).
+“Agregar”: verás el ítem creado en la lista.
+Se registran campos de auditoría (usuarioAlta/fechaAlta y luego usuarioModificacion/fechaModificacion), aunque no se muestran en la UI.
+
+Modificación (4.b):
+Botón “Editar”: indicá nueva descripción y cantidad (valida cantidad >= 0).
+Verás la fila actualizada.
+
+Baja lógica (4.c):
+Botón “Baja”: pide confirmación y marca Eliminado=true.
+Queda registro de auditoría de la baja (como una modificación).
+
+Eventos – PRESIDENTE/COORDINADOR/VOLUNTARIO (Req. 1c–d y 5)
+Listar eventos:
+Verás tarjetas con: nombre, descripción, fecha/hora, participantes, donaciones.
+Para PRESIDENTE/COORDINADOR: botones “Editar evento”, “Eliminar evento”, “Ver participantes”, “Eliminar voluntarios”, “Agregar voluntarios”, “Ver Donaciones”.
+Para VOLUNTARIO: botón para unirse/salir del evento.
+
+Asegurate de tener ítems en inventario (no eliminados) con stock > 0.
+Crear evento pasado (o editar a pasado), abrir “Ver Donaciones”
+Seleccionar un ítem y una cantidad ≤ stock → Guardar → “Donación registrada” y stock descontado al volver a Inventario.
+Intentar cantidad 0 o mayor al stock → error descriptivo.
+Evento futuro → no aparece el formulario (solo listado).
+
+Crear evento FUTURO (5.a, 5.c):
+PRESIDENTE/COORDINADOR: Click “Crear nuevo evento” → /eventos/nuevo.
+Completar nombre, descripción, Fecha (solo futura) y hora. Guardar.
+Si intentás crear en pasado, el backend rechaza con error.
+
+Editar evento (5.b):
+“Editar evento”: podés cambiar nombre, descripción, fecha/hora; guardar.
+Asignar/quitar miembros:
+“Ver participantes”: solo visualiza.
+“Agregar voluntarios”: abre modal con usuarios activos no participantes. Seleccionar para agregar.
+“Eliminar voluntarios”: abre modal para quitar participantes individuales.
+Reglas: PRESIDENTE o COORDINADOR pueden asignar/quitar a cualquier miembro activo. Si un miembro se da de baja, se lo remueve automáticamente de eventos a futuro (ver Usuarios).
+Participación VOLUNTARIO:
+Logueado como VOLUNTARIO, botón “Unirse al evento” / “Salir del evento” solo te afecta a vos mismo.
+
+Eliminar evento (5.c):
+Solo se pueden eliminar eventos a futuro; acción “Eliminar evento”.
+Si es pasado, el backend lo impedirá (verás error).
+
+Donaciones en evento PASADO (5.b):
+Una vez pasado el evento (o si el backend permite editar a pasado), botón “Ver Donaciones”.
+Modal:
+Lista donaciones existentes.
+Si sos PRESIDENTE o COORDINADOR y el evento es pasado, aparece formulario “Agregar donación”: elige categoría, descripción y cantidad (>0).
+Al guardar, se registra la donación en el evento y se descuenta del inventario la cantidad registrada (regla exigida). Queda auditado quién realizó la acción.
+Cerrar y refrescar lista: verás las donaciones reflejadas.
+
+Control de acceso en la web (ProtectedRoute)
+Usuarios (/usuarios, /registro, /usuarios/:id/editar): solo PRESIDENTE; otros roles ven “Acceso denegado”.
+Inventario (/inventario): PRESIDENTE o VOCAL; otros roles ven “Acceso denegado”.
+
+Eventos:
+Crear/Editar (/eventos/nuevo y /eventos/:id/editar): PRESIDENTE o COORDINADOR; otros roles ven “Acceso denegado”.
+Unirse/Salir: solo VOLUNTARIO sobre sí mismo.
+
+Eventos:
+Login como COORDINADOR (coord1).
+Crear evento FUTURO “Visita a escuela Nº 99” con fecha/hora futura.
+Asignar participantes: agregar vocal1 y (si lo activaste) vol1.
+Volver a Usuarios con admin2 y desactivar vol1; volver a evento y comprobar que ya no figura en eventos futuros.
+Intentar eliminar el evento (es futuro): confirmar; mostrar que se elimina.
+Crear otro evento que ocurra pronto; esperar a que pase o (si el backend lo permite) editarlo a fecha pasada.
+En ese evento pasado, “Ver Donaciones” → agregar donación (p.ej., ROPA “remeras” 5); mostrar confirmación y luego verificar (opcionalmente) inventario con 23 restantes.
+
+Comprobación rápida de endpoints/puertos
+La web llama al gateway en http://localhost:5000:
+Auth: POST /auth/login, GET /auth/me
+Usuarios: GET/POST/PUT/DELETE /usuarios[…]
+Inventario: GET/POST/PUT/DELETE /inventario[…]
+Eventos: GET/POST/PUT/DELETE /eventos[…], POST /eventos/:id/participantes, DELETE /eventos/:id/participantes/:usuarioId, POST /eventos/:id/donaciones
+Mailpit UI: http://localhost:8025 para ver los correos de alta.
+
+
+
+Notas
+Si usás COORDINADOR, también funciona (puede gestionar eventos y donaciones en eventos pasados).
+Si un ítem queda en 0 de stock, ya no aparece para selección la próxima vez (el modal solo lista stock > 0).

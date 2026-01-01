@@ -1,0 +1,68 @@
+GRPC: 
+2) Gestión de usuarios 
+----
+KAFKA:
+5. Publicar eventos
+----
+WEB SERVICES:
+1. • Informe de donaciones (GRAPHQL)
+3. • Informe Excel de donaciones (REST)
+------------------------------
+estos 6 archivos abiertos y en orden:
+
+client/proto/usuario.proto
+client/routes/usuarios.py
+backend/users/.../UsuarioGrpcService.java
+backend/eventos/.../EventoGrpcService.java (el Productor)
+backend/eventos/.../EventoSolidarioListener.java (el Consumidor)
+backend/informes/.../InformeRestController.java 
+-------------------------------------------------------------
+"Buenos tardes Profe/s. Voy a mostrar el flujo de datos de tres funcionalidades clave usando gRPC, Kafka y Web Services."
+"Para gRPC, usaré el Alta de Usuario. El flujo es sincrónico."
+
+(Muestro usuario.proto) "Primero, definimos el contrato en el .proto. Aquí está el servicio UsuarioService y el mensaje CrearUsuarioRequest."
+
+(Muestro routes/usuarios.py - El Gateway) "El frontend envía un JSON a nuestro Gateway en Python. Este endpoint traduce el JSON y usa el cliente gRPC para llamar al backend." 
+(Señalo la línea usuario_client.crearUsuario(...))
+
+(Muestro UsuarioGrpcService.java - El Backend) "El backend en Java implementa el servicio. Este método crearUsuario recibe el request. Aquí está la lógica:"
+
+"Generamos una clave."
+"La encriptamos con BCrypt."
+"Guardamos en MySQL."
+"Y enviamos el email." "La baja es lógica: solo cambiamos el campo estado a INACTIVO."
+(flujo: El Gateway depende del Proto, el Backend depende del Proto, y el Backend depende de la DB.)
+
+------------------------------------------------------
+"Para Kafka, el flujo es asincrónico para compartir eventos entre ONGs."
+
+(Muestro EventoGrpcService.java - El Productor) "Cuando un coordinador crea un evento (con un gRPC similar al anterior), 
+justo después de guardarlo en Mongo, el backend actúa como Productor." 
+(Señalo la línea kafkaTemplate.send("eventos-solidarios", ...)) "Publicamos el mensaje en el topic eventos-solidarios y listo"
+
+(Muestro EventoSolidarioListener.java - El Consumidor) "Ahora, el Consumidor. Tenemos este KafkaListener escuchando ese topic." 
+(¡Esta es la parte clave que te preguntaron tus compañeros!) "Cuando llega un mensaje, hacemos dos filtros clave:"
+
+*(Señalo el if) "Primero, descartamos eventos propios (si el ID de organización es el nuestro)."
+
+*(Señalo el otro if) "Segundo, descartamos eventos pasados (si la fecha es anterior a hoy)." 
+"Y lo más importante: si el evento pasa los filtros, lo persistimos en MongoDB, pero en una colección separada llamada eventos_externos. 
+Así es como la pantalla de 'Eventos Externos' se llena de datos."
+
+(¡Perfecto! Respondiste la pregunta trampa de "cómo persiste" antes de que te la hagan).
+
+3. Web Services (REST): Informe Excel (1 minuto 15 segundos)
+"Finalmente, para Web Services, un Informe Excel por REST."
+
+(Muestra InformeRestController.java) "Esto es un @RestController de Spring. El frontend hace un GET a este endpoint /donaciones/excel con los filtros por query params."
+
+"El método consulta la base de datos (MySQL) y usa la librería Apache POI para construir el Excel en memoria." (Señala la línea new XSSFWorkbook())
+
+"El requisito era agrupar por hojas, así que creamos [Señala workbook.createSheet()] una hoja 'ROPA', 'ALIMENTOS', etc., y volcamos el detalle."
+
+"Al final, devolvemos el byte[] del archivo. El Gateway lo reenvía y el navegador lo descarga. Esto también está documentado con Swagger."
+
+(flujo: REST Endpoint -> DB -> Apache POI -> Respuesta binaria).
+
+4. Cierre (15 segundos)
+"En resumen: gRPC para comunicación interna, Kafka para eventos asincrónicos y REST para reportes. Gracias."

@@ -1,0 +1,101 @@
+---Roles de usuario---
+Hecho:
+Roles definidos y seed de roles en MySQL (init.sql).
+Frontend usa roles numéricos: 0 PRESIDENTE, 1 VOCAL, 2 COORDINADOR, 3 VOLUNTARIO.
+
+---Gestión de usuarios – PRESIDENTE---
+Hecho:
+ABM completo en backend users (gRPC): crear, listar, buscar, actualizar, desactivar (baja lógica).
+Alta genera clave aleatoria (PasswordGenerator), se encripta y se envía por email (Mailpit). Edit no permite tocar clave.
+Frontend: formulario de alta/edición, listado, baja lógica.
+
+---Login – TODOS---
+Hecho:
+Autenticación gRPC y emisión de JWT en users; gateway /auth/login; frontend guarda token.
+
+---Inventario de donaciones – PRESIDENTE, VOCAL---
+Hecho:
+Modelos DTO en frontend (algunos stubs).
+
+---Eventos solidarios – PRESIDENTE, COORDINADOR, VOLUNTARIO---
+Backend (eventos):
+Hecho:
+CRUD gRPC con validaciones: crear sólo a futuro, eliminar sólo futuros, registrar donaciones en eventos pasados, validación JWT, chequeos de rol (PRESIDENTE/COORDINADOR).
+
+--API Gateway---
+Hecho:
+Rutas /eventos (listar, crear, buscar, modificar, eliminar, participantes, donaciones) con propagación de JWT.
+
+---Frontend---
+Hecho:
+Listado de eventos, creación de evento con JWT real, eliminación de evento, UI y modales básicos.
+
+---Otros puntos transversales---
+Seed de usuarios: no hay usuario inicial; se crea el primero por UI/API y se obtiene la clave vía Mailpit.
+Seguridad: faltan guardas de rol en gateway/backend users; hoy depende de la UI.
+UX/Errores: gateway tiende a responder 500; conviene 400/401/403 con mensajes claros y la UI mostrarlos.
+
+---Siguientes pasos priorizados---
+-Autenticación y autorización-
+Quitar o aislar el “login fake” en frontend.
+Agregar soporte de login por email en auth (proto + service + gateway + UI).
+Enforce de roles en gateway/users y/o en el servicio users.
+-Eventos en frontend-
+Habilitar COORDINADOR para crear/editar.
+Implementar edición (cargar y guardar).
+Conectar asignar/quitar participantes y unirse/salir a endpoints del gateway.
+Conectar registro/visualización de donaciones.
+Proteger rutas de eventos con ProtectedRoute.
+-Inventario-
+Implementar microservicio gRPC (ABM con auditoría y baja lógica).
+Rutas en gateway y vistas UI.
+Conectar Evento.registrarDonacion a Inventario para descontar stock.
+-Regla de baja de miembro-
+Al desactivar un usuario, removerlo de eventos futuros (hook en users o rutina en eventos).
+-Errores y DX-
+Normalizar respuestas del gateway (401/403/404).
+Mensajes de error claros en UI.
+Tests básicos de integración (login, crear usuario, crear evento, asignar participante).
+
+----------------------------------------------------------------------------------------------------
+Qué hice ahora (Inventario en Java e integración completa)
+Nuevo microservicio Inventario (Java, Spring Boot, gRPC, JPA/MySQL)
+Proto inventario (src/main/proto/inventario.proto): categorías, ABM, stock y descuento.
+Entidad JPA inventario_item con auditoría.
+Repository JPA y mapper.
+Servicio gRPC InventarioService con:
+CrearItem, ListarItems, ActualizarItem, BajaLogica.
+ConsultarStock (suma de ítems activos por categoría).
+DescontarStock (valida stock y descuenta).
+REST auxiliar para ABM y stock (/inventario) para que el gateway consuma por HTTP.
+Dockerfile y configuración (puertos 8083 y 9097; usa la misma MySQL del repo).
+Integración en Eventos (Java)
+inventario.proto copiado al módulo eventos para generar stubs cliente.
+InventarioGrpcClient implementado con @GrpcClient hacia inventario-service.
+EventoGrpcService.registrarDonacionRepartida:
+Valida evento pasado.
+Verifica stock con Inventario.
+Descuenta stock vía gRPC (usa usuario actual para auditoría).
+Registra la donación en el evento.
+Orquestación (docker-compose)
+Servicio inventario agregado (build backend/inventario, puertos 8083/9097, depende de db).
+Eventos ahora depende de inventario.
+API Gateway (Flask)
+Nuevo blueprint /inventario (proxy HTTP al microservicio Java).
+Endpoints:
+GET /inventario (listar; PRESIDENTE/VOCAL).
+POST /inventario (crear; PRESIDENTE/VOCAL).
+PUT /inventario/:id (actualizar; PRESIDENTE/VOCAL).
+DELETE /inventario/:id (baja lógica; PRESIDENTE/VOCAL).
+GET /inventario/stock?categoria=… (stock; todos los roles).
+Autorización por rol usando el JWT (mismo mecanismo que ya apliqué).
+Cambios previos ya aplicados (resumen breve)
+Login por email/usuario con mensajes de error claros; eliminado login fake.
+Enforcement de roles en gateway /usuarios y /eventos, propagación de JWT.
+Regla transversal: al dar de baja usuario, se lo quita de eventos futuros.
+Frontend eventos:
+Crear/editar (PRESIDENTE o COORDINADOR).
+Unirse/salir (VOLUNTARIO).
+Asignar/quitar participantes (real).
+Modal de donaciones conectado al backend (con inventario ya integrado).
+Rutas de eventos protegidas.

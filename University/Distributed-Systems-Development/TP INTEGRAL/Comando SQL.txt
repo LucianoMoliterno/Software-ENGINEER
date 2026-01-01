@@ -1,0 +1,44 @@
+Generar el hash BCrypt (rápido y sin permisos raros)
+docker run -it --rm python:3.13-slim sh
+pip install -q bcrypt
+python - <<'PY'
+import bcrypt
+print(bcrypt.hashpw(b'Presi#123', bcrypt.gensalt()).decode())
+PY
+exit
+---
+Copia el hash que imprime (b2...)
+---
+Paso 2: insertar el PRESIDENTE en MySQL
+docker exec -it grupo-tn-g-mysql mysql -uroot -p
+Pass: root123456
+---
+Verificar columnas reales de usuarios Dentro de MySQL:
+USE bd_empuje_comunitario;
+DESCRIBE usuarios;
+Opcional: ver campos clave
+SHOW COLUMNS FROM usuarios LIKE 'nombre%';
+SHOW COLUMNS FROM usuarios LIKE 'contra%';
+SHOW COLUMNS FROM usuarios LIKE 'rol%';
+---
+USE bd_empuje_comunitario;
+-- Asegurar roles (ya los tienes, pero por si acaso)
+INSERT IGNORE INTO rol (nombre_rol)
+VALUES ('PRESIDENTE'),('VOCAL'),('COORDINADOR'),('VOLUNTARIO');
+-- Inserta el PRESIDENTE (reemplaza <HASH_BCRYPT> por el obtenido)
+INSERT INTO usuarios
+(nombre_usuario, nombre, apellido, telefono, contrasenia, email, rol_id, activo)
+VALUES
+('presi','Juan','Perez','123456','<HASH_BCRYPT>','presi@example.com', 1, b'1');
+-- Verificar
+SELECT id_usuario, nombre_usuario, email, rol_id, activo FROM usuarios WHERE nombre_usuario='presi';
+---
+Paso 3: login en la web
+http://localhost:5173
+Usuario: presi
+Clave: Presi#123
+---
+Luego, desde la página (ABM Usuarios) crea el resto; 
+cada alta enviará la clave a Mailpit (http://localhost:8025). 
+Si ves 401 en Inventario/Usuarios, asegúrate de que no estás usando el mock admin/1234 
+y que el token en localStorage corresponde a presi.
