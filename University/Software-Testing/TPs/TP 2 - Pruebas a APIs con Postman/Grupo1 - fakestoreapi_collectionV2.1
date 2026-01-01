@@ -1,0 +1,323 @@
+{
+	"info": {
+		"_postman_id": "3f35feba-c04c-4c22-8bcd-19582066a8e0",
+		"name": "Grupo1 - fakestoreapi",
+		"description": "### **Descripción y Pasos de Uso**\n\nEsta colección sirve para probar la API de `fakestoreapi.com`. Cada petición incluye pruebas básicas para validar que la respuesta de la API sea correcta (códigos de estado, datos esperados, etc.).\n\n**Carpetas de la Colección:**\n\n- **`Products`**: Contiene las peticiones para obtener la lista de todos los productos o consultar uno por su ID.\n    \n- **`Carts`**: Peticiones para gestionar los carritos de compra, como crear uno nuevo.\n    \n- **`Users`**: Para consultar la información de los usuarios registrados.\n    \n- **`Auth`**: Gestiona el login. Es el punto de partida para poder usar el resto de la API de forma autenticada.\n    \n\n**Cómo usarla (Flujo recomendado):**\n\n1. **Ejecuta el Login**: Abre la carpeta `Auth` y ejecuta la petición **`Logeo de Usuario`**. Esto obtendrá un token de acceso y lo guardará automáticamente en una variable de la colección.\n    \n2. **Ejecuta el resto**: Ahora puedes ejecutar cualquier otra petición de las demás carpetas. Usarán el token guardado para autenticarse.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39752404",
+		"_collection_link": "https://crimson-station-436846.postman.co/workspace/8edbd0cd-05eb-47e9-8387-7d7f64c46f46/collection/39752404-3f35feba-c04c-4c22-8bcd-19582066a8e0?action=share&source=collection_link&creator=39752404"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Obtener todos los Productos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Prueba 1: Verifica que el código de estado es 200 (OK)\r",
+									"pm.test(\"Status code es 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Prueba 2: Verifica que la respuesta es un array\r",
+									"pm.test(\"La respuesta es un array\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"// Prueba 3: Verifica que la lista de productos no está vacía\r",
+									"pm.test(\"El array de productos no está vacío\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.not.be.empty;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fakestoreapi.com/products",
+							"protocol": "https",
+							"host": [
+								"fakestoreapi",
+								"com"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un Producto (ID 1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Prueba 4: Verifica que el código de estado es 200 (OK)\r",
+									"pm.test(\"Status code es 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Prueba 5: Verifica que el ID del producto es 1\r",
+									"pm.test(\"El ID del producto es 1\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fakestoreapi.com/products/1",
+							"protocol": "https",
+							"host": [
+								"fakestoreapi",
+								"com"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carts",
+			"item": [
+				{
+					"name": "Añadir un nuevo Carrito",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Prueba 10: Verifica que el código de estado es 201 (Created)\r",
+									"pm.test(\"Status code es 201\", function () {\r",
+									"    pm.response.to.have.status(201); \r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 5,\r\n    \"date\": \"2020-02-03\",\r\n    \"products\": [\r\n        {\"productId\": 1, \"quantity\": 4},\r\n        {\"productId\": 2, \"quantity\": 1}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fakestoreapi.com/carts",
+							"protocol": "https",
+							"host": [
+								"fakestoreapi",
+								"com"
+							],
+							"path": [
+								"carts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Obtener todos los Usuarios",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Prueba 8: Verifica que el código de estado es 200 (OK)\r",
+									"pm.test(\"Status code es 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Prueba 9: Verifica que la respuesta contiene 10 usuarios\r",
+									"pm.test(\"La respuesta contiene 10 usuarios\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"    pm.expect(jsonData.length).to.eql(10);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://fakestoreapi.com/users",
+							"protocol": "https",
+							"host": [
+								"fakestoreapi",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Logeo de Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Prueba 6: Verifica que el código de estado es 201 (Created)\r",
+									"pm.test(\"Status code es 201\", function () {\r",
+									"    pm.response.to.have.status(201); \r",
+									"});\r",
+									"\r",
+									"// Prueba 7: Verifica que la respuesta contiene un 'token'\r",
+									"pm.test(\"La respuesta incluye un token\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.token).to.exist;\r",
+									"    pm.expect(jsonData.token).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"// Prueba adicional: Guarda el token en una variable de colección\r",
+									"pm.test(\"Token guardado correctamente\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    if (jsonData.token) {\r",
+									"        pm.collectionVariables.set(\"authToken\", jsonData.token);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"mor_2314\",\r\n    \"password\": \"83r5^_\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://fakestoreapi.com/auth/login",
+							"protocol": "https",
+							"host": [
+								"fakestoreapi",
+								"com"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": ""
+		}
+	]
+}
